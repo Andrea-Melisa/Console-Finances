@@ -94,11 +94,28 @@ var finances = [
 // The total number of months included in the dataset.
   // finances.length
 
+console.log("Financial Analysis");
+console.log("-------------------");
+
+var totalMonths = finances.length;
+console.log(`Total Months: ${totalMonths}`);
+
 // The net total amount of Profit / Losses over the entire period.
   // Need a variable for Profits/Losses
   // Need to be able to compare the data for the loop that we're on to the data from the previous loop
     // Need variables for current & previous once we start the loop
     // Need an if statement to make sure we're on at least month 2 (array index 1) before starting to figure profits & losses
+
+var netTotal = 0;
+// for (let i = 0; i < finances.length; i++) {
+//   var profitsLosses = finances[i][1]
+//   netTotal = netTotal + profitsLosses 
+// }
+
+for (let i = 0; i < finances.length; i++) {
+  netTotal += finances[i][1];
+}
+console.log(`Total: $${netTotal}`)
 
 // The average of the changes in Profit / Losses over the entire period.
   // Need a variable to track the average change
@@ -106,23 +123,44 @@ var finances = [
 // You will need to track what the total change in Profit / Losses are from month to month and then find the average.
 // (Total / (Number of months - 1))
 
+let change = 0;
+for (let i = 0; i < finances.length -1; i++) {
+  let nextMonth = i + 1;
+  change += finances[nextMonth][1] - finances[i][1];
+}
+let averageChange = change / (totalMonths - 1);
+console.log(`Average Change: ${averageChange.toFixed(2)}`)
+
 // The greatest increase in Profit / Losses(date and amount) over the entire period.
   // Need a variable for the greatest increase
   // On each iteration, compare the current change in profits/losses to what's currently stored
   // If the change is more, replace what's currently stored in the variable
+
+  let greatestIncrease = 0;
+  let month = 0;
+  for (let i = 0; i < finances.length -1; i++) {
+    let nextMonth = i + 1;
+    if (greatestIncrease < finances[nextMonth][1] - finances[i][1]) {
+      greatestIncrease = finances[nextMonth][1] - finances[i][1];
+      month = nextMonth;
+    }
+  }
+  console.log(`Greatest Increase in Profits/Losses: ${finances[month][0]} (\$${greatestIncrease})`)
+
 
 // The greatest decrease in Profit / Losses(date and amount) over the entire period.
   // Need a variable for the greatest decrease
   // On each iteration, compare the current change in profits/losses to what's currently stored
   // If the loss is greater, replace what's currently stored in the variable
 
-// variables:
-// total number of months
-// rolling total of profits
-// greatest increase (month & amt)
-// greatest loss (month & amt)
-// average of the changes
+  let greatestDecrease = 0;
+  let monthD = 0;
+  for (let i = 0; i < finances.length -1; i++) {
+    let nextMonth = i + 1;
+    if (greatestDecrease > finances[nextMonth][1] - finances[i][1]) {
+      greatestDecrease = finances[nextMonth][1] - finances[i][1];
+      monthD = nextMonth;
+    }
+  }
+  console.log(`Greatest Increase in Profits/Losses: ${finances[monthD][0]} (\$${greatestDecrease})`)
 
-// variables declared inside the loop:
-// current data point
-// previous data point
